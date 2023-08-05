@@ -26,56 +26,6 @@ namespace RegistrationForm.Tests.TestCases
         }
 
         [Fact]
-        public async Task<bool> ValidRegisterDataFormModel_ShouldPassValidation()
-        {
-            //Arrange
-            var res = false;
-            string testName; string status;
-            testName = CallAPI.GetCurrentMethodName();
-            var formModel = new RegisterDataFormModel
-            {
-                Name = "John Doe",
-                Email = "john.doe@example.com",
-                Age = 30,
-                MobileNumber = "1234567890",
-                Address = "123 Main St"
-            };
-            var validationContext = new ValidationContext(formModel, null, null);
-            var validationResults = new List<ValidationResult>();
-
-            //Action
-            try
-            {
-                var isValid = Validator.TryValidateObject(formModel, validationContext, validationResults, true);
-                
-                //Assertion
-                if (isValid)
-                {
-                    res = true;
-                }
-            }
-            catch (Exception)
-            {
-                //Assert
-                status = Convert.ToString(res);
-                _output.WriteLine(testName + ":Failed");
-                await CallAPI.saveTestResult(testName, status, type);
-                return false;
-            }
-            status = Convert.ToString(res);
-            if (res == true)
-            {
-                _output.WriteLine(testName + ":Passed");
-            }
-            else
-            {
-                _output.WriteLine(testName + ":Failed");
-            }
-            await CallAPI.saveTestResult(testName, status, type);
-            return res;
-        }
-
-        [Fact]
         public async Task<bool> ValidRegisterDataFormModel_NameIsNotValid()
         {
             //Arrange
@@ -84,9 +34,9 @@ namespace RegistrationForm.Tests.TestCases
             testName = CallAPI.GetCurrentMethodName();
             var formModel = new RegisterDataFormModel
             {
-                Name = "",
-                Email = "john.doe@example.com",
-                Age = 30,
+                Name = "john",
+                Email = "john@gmail.com",
+                Age = 0,
                 MobileNumber = "1234567890",
                 Address = "123 Main St"
             };
@@ -135,9 +85,9 @@ namespace RegistrationForm.Tests.TestCases
             var formModel = new RegisterDataFormModel
             {
                 Name = "john",
-                Email = "john",
+                Email = "john@gmail.com",
                 Age = 30,
-                MobileNumber = "1234567890",
+                MobileNumber = "12",
                 Address = "123 Main St"
             };
             var validationContext = new ValidationContext(formModel, null, null);
@@ -175,5 +125,54 @@ namespace RegistrationForm.Tests.TestCases
             return res;
         }
 
+        [Fact]
+        public async Task<bool> ValidRegisterDataFormModel_NotValid()
+        {
+            //Arrange
+            var res = false;
+            string testName; string status;
+            testName = CallAPI.GetCurrentMethodName();
+            var formModel = new RegisterDataFormModel
+            {
+                Name = "john",
+                Email = "john@gmail.com",
+                Age = 30,
+                MobileNumber = "1234567892",
+                Address = ""
+            };
+            var validationContext = new ValidationContext(formModel, null, null);
+            var validationResults = new List<ValidationResult>();
+
+            //Action
+            try
+            {
+                var isValid = Validator.TryValidateObject(formModel, validationContext, validationResults, true);
+
+                //Assertion
+                if (!isValid)
+                {
+                    res = true;
+                }
+            }
+            catch (Exception)
+            {
+                //Assert
+                status = Convert.ToString(res);
+                _output.WriteLine(testName + ":Failed");
+                await CallAPI.saveTestResult(testName, status, type);
+                return false;
+            }
+            status = Convert.ToString(res);
+            if (res == true)
+            {
+                _output.WriteLine(testName + ":Passed");
+            }
+            else
+            {
+                _output.WriteLine(testName + ":Failed");
+            }
+            await CallAPI.saveTestResult(testName, status, type);
+            return res;
+        }
     }
 }

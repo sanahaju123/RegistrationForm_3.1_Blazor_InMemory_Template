@@ -121,7 +121,7 @@ namespace RegistrationForm.Tests.TestCases
         }
         
         [Fact]
-        public async Task<bool> ValidRegisterDataFormModel_AddressNumberIsNotValid()
+        public async Task<bool> ValidRegisterDataFormModel_AddressIsNotValid()
         {
             //Arrange
             var res = false;

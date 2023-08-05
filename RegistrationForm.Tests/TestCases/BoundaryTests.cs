@@ -29,11 +29,11 @@ namespace RegistrationForm.Tests.TestCases
             testName = CallAPI.GetCurrentMethodName();
             var formModel = new RegisterDataFormModel
             {
-                Name = "john",
+                Name = "",
                 Email = "john@gmail.com",
                 Age = 30,
                 MobileNumber = "1234567892",
-                Address = "aaaaaaaaaaaaaaa"
+                Address = "aaaaaaaaaa"
             };
             var validationContext = new ValidationContext(formModel, null, null);
             var validationResults = new List<ValidationResult>();
@@ -44,7 +44,7 @@ namespace RegistrationForm.Tests.TestCases
                 var isValid = Validator.TryValidateObject(formModel, validationContext, validationResults, true);
 
                 //Assertion
-                if (isValid)
+                if (!isValid)
                 {
                     res = true;
                 }
@@ -81,9 +81,9 @@ namespace RegistrationForm.Tests.TestCases
             {
                 Name = "john",
                 Email = "john@gmail.com",
-                Age = 30,
-                MobileNumber = "1234567892",
-                Address = "aaaaaaaaaaaaaaa"
+                Age = 0,
+                MobileNumber = "1234567890",
+                Address = "123 Main St"
             };
             var validationContext = new ValidationContext(formModel, null, null);
             var validationResults = new List<ValidationResult>();
@@ -94,7 +94,7 @@ namespace RegistrationForm.Tests.TestCases
                 var isValid = Validator.TryValidateObject(formModel, validationContext, validationResults, true);
 
                 //Assertion
-                if (isValid)
+                if (!isValid)
                 {
                     res = true;
                 }
@@ -132,8 +132,8 @@ namespace RegistrationForm.Tests.TestCases
                 Name = "john",
                 Email = "john@gmail.com",
                 Age = 30,
-                MobileNumber = "1234567892",
-                Address = "aaaaaaaaaaaaaaa"
+                MobileNumber = "12",
+                Address = "123 Main St"
             };
             var validationContext = new ValidationContext(formModel, null, null);
             var validationResults = new List<ValidationResult>();
@@ -144,7 +144,7 @@ namespace RegistrationForm.Tests.TestCases
                 var isValid = Validator.TryValidateObject(formModel, validationContext, validationResults, true);
 
                 //Assertion
-                if (isValid)
+                if (!isValid)
                 {
                     res = true;
                 }
@@ -183,7 +183,7 @@ namespace RegistrationForm.Tests.TestCases
                 Email = "john@gmail.com",
                 Age = 30,
                 MobileNumber = "1234567892",
-                Address = "aaaaaaaaaaaaaaa"
+                Address = ""
             };
             var validationContext = new ValidationContext(formModel, null, null);
             var validationResults = new List<ValidationResult>();
@@ -194,7 +194,7 @@ namespace RegistrationForm.Tests.TestCases
                 var isValid = Validator.TryValidateObject(formModel, validationContext, validationResults, true);
 
                 //Assertion
-                if (isValid)
+                if (!isValid)
                 {
                     res = true;
                 }
